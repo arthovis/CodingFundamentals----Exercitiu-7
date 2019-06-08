@@ -14,19 +14,18 @@ public class Main {
             System.out.println("Lungimea trebuie sa fie de minim 6 caractere");
             valid=false;
         }
-        if (!Pattern.matches(".*[a-z].*",parola)){
-            System.out.println("Minim o litera mica!");
-            valid=false;
-        }
-        if (!Pattern.matches(".*[A-Z].*",parola)) {
-            System.out.println("Minim o litera mare!");
-            valid = false;
-        }
-        if (!Pattern.matches(".*\\d.*",parola)){
-            System.out.println("Minim o cifra!");
-            valid=false;
-        }
+        boolean hasLowerCase = isValid(".*[a-z].*",parola,"Minim o litera mica!");
+        boolean hasUpperCase = isValid(".*[A-Z].*",parola,"Minim o litera mare!");
+        boolean hasDigit = isValid(".*\\d.*",parola,"Minim o cifra");
+        valid = valid &&!hasDigit && !hasLowerCase && !hasUpperCase;
         System.out.println(valid ? "Parola corecta!":"Parola incorecta!");
 
+    }
+    private static boolean isValid(String regex,String parola, String message){
+        if (Pattern.matches(regex,parola)){
+            return true;
+        }
+        System.out.println(message);
+        return false;
     }
 }
